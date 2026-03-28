@@ -6,17 +6,14 @@ function loadBlogs() {
 
   container.innerHTML = "";
 
-  blogs.forEach((blog, index) => {
-
-    let featured = index === 0 ? "featured" : "";
-
+  blogs.forEach(blog => {
     container.innerHTML += `
-      <div class="card ${featured}">
-        <a href="${blog.link}">
+      <div class="card">
+        <a href="post.html?id=${blog.id}">
           <img src="${blog.img}" style="width:100%; border-radius:10px;">
           <h3>${blog.title}</h3>
           <p>${blog.desc}</p>
-          <small>📅 ${blog.date} | ✍️ ${blog.author}</small>
+          <small>${blog.date}</small>
         </a>
       </div>
     `;
@@ -27,22 +24,6 @@ function toggleDark() {
   document.body.classList.toggle("dark");
 }
 
-// smooth scroll + init
 document.addEventListener("DOMContentLoaded", function () {
   loadBlogs();
-
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      const target = document.querySelector(this.getAttribute("href"));
-
-      if (target) {
-        window.scrollTo({
-          top: target.offsetTop - 50,
-          behavior: "smooth"
-        });
-      }
-    });
-  });
 });
