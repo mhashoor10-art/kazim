@@ -1,29 +1,38 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Homepage -->
+  <!-- Home Page -->
   <url>
-    <loc>https://my-blog.vercel.app/</loc>
-    <lastmod>2026-03-25</lastmod>
-    <changefreq>daily</changefreq>
+    <loc>https://mhashoor10-art.github.io/kazim/</loc>
     <priority>1.0</priority>
   </url>
 
-  <!-- Example Blog Post 1 -->
+  <!-- Blog Pages -->
   <url>
-    <loc>https://my-blog.vercel.app/post1.html</loc>
-    <lastmod>2026-03-25</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://mhashoor10-art.github.io/kazim/blog1.html</loc>
     <priority>0.8</priority>
   </url>
 
-  <!-- Example Blog Post 2 -->
   <url>
-    <loc>https://my-blog.vercel.app/post2.html</loc>
-    <lastmod>2026-03-25</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://mhashoor10-art.github.io/kazim/blog2.html</loc>
     <priority>0.8</priority>
   </url>
 
-  <!-- Add more posts in same format -->
+  <!-- Future blogs (ready structure) -->
+  <url>
+    <loc>https://mhashoor10-art.github.io/kazim/blog3.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://mhashoor10-art.github.io/kazim/blog4.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://mhashoor10-art.github.io/kazim/blog5.html</loc>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
