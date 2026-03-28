@@ -1,22 +1,4 @@
-let blogs = [
-  {
-    title: "My First Blog",
-    desc: "Click to read my first blog post",
-    link: "blog1.html",
-    img: "https://via.placeholder.com/400x200",
-    date: "March 2026",
-    author: "Kazim"
-  },
-  {
-    title: "My Second Blog",
-    desc: "Click to read my second blog post",
-    link: "blog2.html",
-    img: "https://via.placeholder.com/400x200",
-    date: "March 2026",
-    author: "Kazim"
-  }
-];
-
+let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
 
 function loadBlogs() {
   let container = document.getElementById("blogList");
@@ -40,16 +22,15 @@ function loadBlogs() {
     `;
   });
 }
+
 function toggleDark() {
   document.body.classList.toggle("dark");
 }
 
-// ✅ WAIT for page load
+// smooth scroll + init
 document.addEventListener("DOMContentLoaded", function () {
-
   loadBlogs();
 
-  // smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
@@ -64,5 +45,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-
 });
