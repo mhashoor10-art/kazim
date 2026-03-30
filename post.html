@@ -34,7 +34,7 @@ const snap = await getDoc(doc(db, "blogs", id));
 if (snap.exists()) {
   let b = snap.data();
 
-  post.innerHTML = `
+  document.getElementById("post").innerHTML
     <h1>${b.title}</h1>
     <img src="${b.img}" width="100%">
     <p>${b.content}</p>
