@@ -214,3 +214,13 @@ body.dark .footer-bottom {
   border-top: 1px solid #333 !important;
   color: #aaa;
 }
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: #00ffcc;
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
