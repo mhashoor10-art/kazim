@@ -73,7 +73,13 @@ img {
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+  getFirestore, 
+  collection, 
+  query, 
+  limit, 
+  getDocs 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -99,7 +105,9 @@ let allBlogs = [];
 async function loadBlogs() {
   blogsDiv.innerHTML = "Loading blogs...";
 
-  const data = await getDocs(collection(db, "blogs"));
+  const q = query(collection(db, "blogs"), limit(5));
+
+  const data = await getDocs(q);
 
   let html = "";
 
@@ -117,7 +125,6 @@ async function loadBlogs() {
 
   blogsDiv.innerHTML = html;
 }
-
 // SHOW BLOGS
 function showBlogs(list) {
   let html = "";
