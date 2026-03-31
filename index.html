@@ -112,17 +112,19 @@ async function loadBlogs() {
 
 // SHOW BLOGS
 function showBlogs(list) {
-  blogsDiv.innerHTML = "";
+  let html = "";
 
   list.forEach(b => {
-    blogsDiv.innerHTML += `
-  <div class="card">
-    <h3>${b.title || "No Title"}</h3>
-    <img src="${b.image || "https://via.placeholder.com/300"}">
-    <p>${b.content || ""}</p>
-  </div>
-`;
+    html += `
+      <div class="card">
+        <h3>${b.title || "No Title"}</h3>
+        <img loading="lazy" src="${b.image || "https://via.placeholder.com/300"}">
+        <p>${b.content || ""}</p>
+      </div>
+    `;
   });
+
+  blogsDiv.innerHTML = html;
 }
 
 // SEARCH
