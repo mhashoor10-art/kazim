@@ -76,21 +76,21 @@ function showBlogs(list) {
   list.forEach(b => {
     blogsDiv.innerHTML += `
       <div class="card">
-        <h3>${b.title}</h3>
-        <img src="${b.img}">
-        <p>${b.desc}</p>
+        <h3>${b.title || "No Title"}</h3>
+        <img src="${b.img || "https://via.placeholder.com/300"}">
+        <p>${b.desc || ""}</p>
         <a href="post.html?id=${b.id}">Read More</a>
       </div>
     `;
   });
 }
 
-// SEARCH FIX
+// SEARCH FIX (SAFE)
 searchInput.addEventListener("input", () => {
   let q = searchInput.value.toLowerCase();
 
   let filtered = allBlogs.filter(b =>
-    b.title.toLowerCase().includes(q)
+    (b.title || "").toLowerCase().includes(q)
   );
 
   showBlogs(filtered);
