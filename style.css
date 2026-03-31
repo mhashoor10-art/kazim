@@ -112,3 +112,31 @@ body.dark textarea {
   color: #fff;
   border: 1px solid #555;
 }
+/* TOP HEADER */
+.top-header {
+  background: #222;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+/* LOGO AREA */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* LOGO IMAGE */
+.logo img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+/* WEBSITE NAME */
+.logo h1 {
+  color: white;
+  font-size: 28px;
+  margin: 0;
+}
