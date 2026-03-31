@@ -97,17 +97,25 @@ let allBlogs = [];
 
 // LOAD BLOGS
 async function loadBlogs() {
+  blogsDiv.innerHTML = "Loading blogs...";
+
   const data = await getDocs(collection(db, "blogs"));
 
-  allBlogs = [];
+  let html = "";
 
-  data.forEach((docSnap) => {
-    let b = docSnap.data();
-    b.id = docSnap.id;
-    allBlogs.push(b);
+  data.forEach((doc) => {
+    const b = doc.data();
+
+    html += `
+      <div class="card">
+        <h3>${b.title || "No Title"}</h3>
+        <img loading="lazy" src="${b.image || "https://via.placeholder.com/300"}">
+        <p>${b.content || ""}</p>
+      </div>
+    `;
   });
 
-  showBlogs(allBlogs);
+  blogsDiv.innerHTML = html;
 }
 
 // SHOW BLOGS
