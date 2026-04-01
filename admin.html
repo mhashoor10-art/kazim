@@ -3,9 +3,12 @@
 <head>
   <title>Admin Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+<div class="container">
 
 <div id="login">
   <h2>Login 🔐</h2>
@@ -17,10 +20,10 @@
   <h2>Admin Panel 🚀</h2>
 
   <input id="title" placeholder="Title">
-<input id="desc" placeholder="Description">
-<input id="img" placeholder="Image URL">
-<textarea id="content" placeholder="Content"></textarea>
-<input id="author" placeholder="Author">
+  <input id="desc" placeholder="Description">
+  <input id="img" placeholder="Image URL">
+  <textarea id="content" placeholder="Content"></textarea>
+  <input id="author" placeholder="Author">
 
   <button id="saveBtn">Save Blog</button>
 
@@ -28,8 +31,9 @@
   <div id="list"></div>
 </div>
 
+</div>
 
-  <script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getFirestore,
@@ -50,48 +54,31 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// FIX DOM SAFETY
 const $ = (id) => document.getElementById(id);
-
-const pass = $("pass");
-const loginBtn = $("loginBtn");
-const panel = $("panel");
-const list = $("list");
-
-const title = $("title");
-const desc = $("desc");
-const img = $("img");
-const content = $("content");
-const author = $("author");
 
 let editId = null;
 
-// LOGIN
-loginBtn.onclick = () => {
-  if (pass.value === "1234") {
+$("loginBtn").onclick = () => {
+  if ($("pass").value === "1234") {
     $("login").style.display = "none";
-    panel.style.display = "block";
+    $("panel").style.display = "block";
     loadBlogs();
   } else {
     alert("Wrong password");
   }
 };
 
-// SAVE
 $("saveBtn").onclick = async () => {
-  let blog = {
-    title: title.value,
-    desc: desc.value,
-    img: img.value,
-    content: content.value,
-    author: author.value,
+  const blog = {
+    title: $("title").value,
+    desc: $("desc").value,
+    img: $("img").value,
+    content: $("content").value,
+    author: $("author").value,
     date: new Date().toDateString()
   };
 
-  if (!blog.title || !blog.desc) {
-    alert("Title + Desc required");
-    return;
-  }
+  if (!blog.title || !blog.desc) return alert("Fill required fields");
 
   if (editId) {
     await updateDoc(doc(db, "blogs", editId), blog);
@@ -100,20 +87,20 @@ $("saveBtn").onclick = async () => {
     await addDoc(collection(db, "blogs"), blog);
   }
 
-  clearForm();
+  clear();
   loadBlogs();
 };
 
-// LOAD
 async function loadBlogs() {
+  const list = $("list");
   list.innerHTML = "";
 
   const data = await getDocs(collection(db, "blogs"));
 
   data.forEach((d) => {
-    let b = d.data();
+    const b = d.data();
 
-    let div = document.createElement("div");
+    const div = document.createElement("div");
 
     div.innerHTML = `
       <h4>${b.title}</h4>
@@ -124,11 +111,11 @@ async function loadBlogs() {
 
     div.querySelector(".edit").onclick = () => {
       editId = d.id;
-      title.value = b.title;
-      desc.value = b.desc;
-      img.value = b.img;
-      content.value = b.content;
-      author.value = b.author;
+      $("title").value = b.title;
+      $("desc").value = b.desc;
+      $("img").value = b.img;
+      $("content").value = b.content;
+      $("author").value = b.author;
     };
 
     div.querySelector(".del").onclick = async () => {
@@ -140,12 +127,14 @@ async function loadBlogs() {
   });
 }
 
-// CLEAR
-function clearForm() {
-  title.value = "";
-  desc.value = "";
-  img.value = "";
-  content.value = "";
-  author.value = "";
+function clear() {
+  $("title").value = "";
+  $("desc").value = "";
+  $("img").value = "";
+  $("content").value = "";
+  $("author").value = "";
 }
 </script>
+
+</body>
+</html>
