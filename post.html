@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Blog Post</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h2 id="title">Loading...</h2>
-<img id="img" style="width:100%; max-width:500px;">
-<p id="desc"></p>
+<div class="container">
+  <div id="post">Loading...</div>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyBlQP-s0Q-y6J1POkEEHrcDP32Wn6JPK_4",
   authDomain: "kazim-aa621.firebaseapp.com",
@@ -24,22 +26,42 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// GET ID FROM URL
-const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get("id");
+// URL se ID lena
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+const postDiv = document.getElementById("post");
 
 async function loadPost() {
-  const docRef = doc(db, "blogs", id);
-  const docSnap = await getDoc(docRef);
+  if (!id) {
+    postDiv.innerHTML = "No post found";
+    return;
+  }
 
-  if (docSnap.exists()) {
-    let data = docSnap.data();
+  try {
+    const ref = doc(db, "blogs", id);
+    const snap = await getDoc(ref);
 
-    document.getElementById("title").innerText = data.title;
-    document.getElementById("img").src = data.img;
-    document.getElementById("desc").innerText = data.desc;
-  } else {
-    document.getElementById("title").innerText = "Post not found!";
+    if (!snap.exists()) {
+      postDiv.innerHTML = "Post not found";
+      return;
+    }
+
+    const blog = snap.data();
+
+    postDiv.innerHTML = `
+      <div class="card">
+        <img src="${blog.img || "https://via.placeholder.com/600"}">
+        <h1>${blog.title}</h1>
+        <p><b>By:</b> ${blog.author || "Admin"}</p>
+        <small>${blog.date || ""}</small>
+        <hr>
+        <p>${blog.content || ""}</p>
+      </div>
+    `;
+  } catch (err) {
+    console.error(err);
+    postDiv.innerHTML = "Error loading post";
   }
 }
 
