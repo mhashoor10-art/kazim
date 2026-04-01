@@ -84,34 +84,7 @@ button:hover {
   transform: scale(1.03);
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
-/* DARK MODE */
-body.dark {
-  background: #121212;
-  color: #ffffff;
-}
 
-/* Cards dark mode */
-body.dark .card {
-  background: #1e1e1e;
-  color: #ffffff;
-}
-
-/* Nav dark mode */
-body.dark nav {
-  background: #000;
-}
-
-body.dark nav a {
-  color: #fff;
-}
-
-/* Inputs dark mode */
-body.dark input,
-body.dark textarea {
-  background: #2a2a2a;
-  color: #fff;
-  border: 1px solid #555;
-}
 /* TOP HEADER */
 .top-header {
   background: #222;
@@ -189,31 +162,7 @@ body.dark .top-header {
   padding-top: 10px;
   color: #aaa;
 }
-/* ===== FOOTER DARK MODE FIX ===== */
 
-body.dark .footer {
-  background: #000 !important;
-  color: #fff;
-}
-
-body.dark .footer-box h2,
-body.dark .footer-box h3,
-body.dark .footer-box p {
-  color: #fff !important;
-}
-
-body.dark .footer-box a {
-  color: #bbb !important;
-}
-
-body.dark .footer-box a:hover {
-  color: yellow !important;
-}
-
-body.dark .footer-bottom {
-  border-top: 1px solid #333 !important;
-  color: #aaa;
-}
 #progressBar {
   position: fixed;
   top: 0;
