@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Best blog website for tech tips, online earning and tutorials">
-<meta name="keywords" content="blog, tech, earning, tips, tutorials">
-<meta name="author" content="Kazim">
-<meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="hbqEwgtUnMeSxn1KEhRA5B1kOg2VYHIHXixzDodGeY0" />
 
 <title>Kazim Blog</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -22,14 +16,14 @@
 
 <header class="top-header">
   <div class="logo">
-    <img src="logo.png" width="50">
+    <img src="logo.png">
     <h1>Kazim Blog</h1>
   </div>
 </header>
 
 <input id="searchInput" placeholder="Search...">
 
-<h2>Blogs</h2>
+<h2 style="padding:0 20px;">Blogs</h2>
 <div id="blogs"></div>
 
 <footer class="footer">
@@ -38,7 +32,6 @@
   </div>
 </footer>
 
-<!-- ✅ JS FILE (IMPORTANT) -->
 <script type="module" src="index.js"></script>
 
 <script>
@@ -46,7 +39,6 @@ window.onscroll = function () {
   let scrollTop = document.documentElement.scrollTop;
   let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   let progress = (scrollTop / height) * 100;
-
   document.getElementById("progressBar").style.width = progress + "%";
 };
 </script>
