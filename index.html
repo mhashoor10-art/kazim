@@ -3,207 +3,36 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- SEO -->
 <meta name="description" content="Best blog website for tech tips, online earning and tutorials">
 <meta name="keywords" content="blog, tech, earning, tips, tutorials">
 <meta name="author" content="Kazim">
-<meta name="google-site-verification" content="hbqEwgtUnMeSxn1KEhRA5B1kOg2VYHIHXixzDodGeY0" />
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://mhashoor10-art.github.io/kazim/">
+<meta name="google-site-verification" content="hbqEwgtUnMeSxn1KEhRA5B1kOg2VYHIHXixzDodGeY0" />
 
-<title>Kazim Blog | Tech Tips & Online Earning</title>
+<title>Kazim Blog</title>
 
 <link rel="stylesheet" href="style.css">
-
-<style>
-body {
-  font-family: Arial;
-  padding: 20px;
-  margin: 0;
-}
-
-.dark {
-  background: #111;
-  color: white;
-}
-
-.card {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-img {
-  width: 100%;
-}
-
-/* Progress Bar */
-#progressBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 0%;
-  background: linear-gradient(90deg, #00ffcc, #00aaff);
-  box-shadow: 0 0 10px #00ffcc;
-  z-index: 9999;
-}
-</style>
 
 </head>
 
 <body>
 
-<!-- ✅ Scroll Progress Bar -->
 <div id="progressBar"></div>
 
 <header class="top-header">
   <div class="logo">
-    <img src="logo.png" alt="Logo" width="50">
+    <img src="logo.png" width="50">
     <h1>Kazim Blog</h1>
   </div>
 </header>
 
-<input id="search" placeholder="Search...">
+<input id="searchInput" placeholder="Search...">
 
 <h2>Blogs</h2>
 <div id="blogs"></div>
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { 
-  getFirestore, 
-  collection, 
-  query, 
-  limit, 
-  getDocs 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBlQP-s0Q-y6J1POkEEHrcDP32Wn6JPK_4",
-  authDomain: "kazim-aa621.firebaseapp.com",
-  projectId: "kazim-aa621",
-  storageBucket: "kazim-aa621.firebasestorage.app",
-  messagingSenderId: "1013202883035",
-  appId: "1:1013202883035:web:777c341cfc6c14d3a217fe",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const blogsDiv = document.getElementById("blogs");
-
-// LOAD BLOGS (FAST + LIMITED)
-async function loadBlogs() {
-  blogsDiv.innerHTML = "Loading blogs...";
-
-  const q = query(collection(db, "blogs"), limit(5));
-
-  const data = await getDocs(q);
-
-  let html = "";
-
-  data.forEach((doc) => {
-    const b = doc.data();
-
-    html += `
-      <div class="card">
-        <h3>${b.title || "No Title"}</h3>
-        <img loading="lazy" src="${b.image || "https://via.placeholder.com/300"}">
-        <p>${b.content || ""}</p>
-      </div>
-    `;
-  });
-
-  blogsDiv.innerHTML = html;
-}
-
-loadBlogs();
-// SHOW BLOGS
-function showBlogs(list) {
-  let html = "";
-
-  list.forEach(b => {
-    html += `
-      <div class="card">
-        <h3>${b.title || "No Title"}</h3>
-        <img loading="lazy" src="${b.image || "https://via.placeholder.com/300"}">
-        <p>${b.content || ""}</p>
-      </div>
-    `;
-  });
-
-  blogsDiv.innerHTML = html;
-}
-
-// SEARCH
-searchInput.addEventListener("input", () => {
-  let q = searchInput.value.toLowerCase();
-
-  let filtered = allBlogs.filter(b =>
-    (b.title || "").toLowerCase().includes(q)
-  );
-
-  showBlogs(filtered);
-});
-
-// DARK MODE
-darkBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  localStorage.setItem("dark", document.body.classList.contains("dark"));
-});
-
-if (localStorage.getItem("dark") === "true") {
-  document.body.classList.add("dark");
-}
-
-// INIT
-loadBlogs();
-
-</script>
-
-<!-- ✅ SCROLL PROGRESS BAR SCRIPT -->
-<script>
-window.onscroll = function () {
-  let scrollTop = document.documentElement.scrollTop;
-  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  let progress = (scrollTop / height) * 100;
-
-  document.getElementById("progressBar").style.width = progress + "%";
-};
-</script>
-
-<!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-container">
-
-    <div class="footer-box">
-      <h2>Kazim Blog</h2>
-      <p>Tech tips, online earning & tutorials for everyone</p>
-    </div>
-
-    <div class="footer-box">
-      <h3>Quick Links</h3>
-      <a href="index.html">Home</a><br>
-      <a href="#">Blogs</a><br>
-      <a href="#">Contact</a>
-    </div>
-
-    <div class="footer-box">
-      <h3>Follow Us</h3>
-      <a href="#">Facebook</a><br>
-      <a href="#">YouTube</a><br>
-      <a href="#">Instagram</a>
-    </div>
-
-  </div>
-
   <div class="footer-bottom">
-    <p>© 2026 Kazim Blog | All Rights Reserved</p>
+    <p>© 2026 Kazim Blog</p>
   </div>
 </footer>
-
-</body>
-</html>
