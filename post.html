@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog Post</title>
+<title>Post</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -26,29 +26,23 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const id = new URLSearchParams(window.location.search).get("id");
-const postDiv = document.getElementById("post");
+const post = document.getElementById("post");
 
 async function loadPost() {
-  if (!id) {
-    postDiv.innerHTML = "No post found";
-    return;
-  }
+  if (!id) return post.innerHTML = "No post found";
 
   const snap = await getDoc(doc(db, "blogs", id));
 
-  if (!snap.exists()) {
-    postDiv.innerHTML = "Post not found";
-    return;
-  }
+  if (!snap.exists()) return post.innerHTML = "Not found";
 
   const b = snap.data();
 
-  postDiv.innerHTML = `
+  post.innerHTML = `
     <div class="card">
       <img src="${b.img}">
       <h1>${b.title}</h1>
-      <p>${b.content || b.desc || ""}</p>
-      <small>${b.date || ""}</small>
+      <p>${b.content}</p>
+      <small>${b.date}</small>
     </div>
   `;
 }
