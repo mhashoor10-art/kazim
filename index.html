@@ -3,6 +3,7 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="description" content="Best blog website for tech tips, online earning and tutorials">
 <meta name="keywords" content="blog, tech, earning, tips, tutorials">
 <meta name="author" content="Kazim">
@@ -36,3 +37,19 @@
     <p>© 2026 Kazim Blog</p>
   </div>
 </footer>
+
+<!-- ✅ JS FILE (IMPORTANT) -->
+<script type="module" src="index.js"></script>
+
+<script>
+window.onscroll = function () {
+  let scrollTop = document.documentElement.scrollTop;
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  let progress = (scrollTop / height) * 100;
+
+  document.getElementById("progressBar").style.width = progress + "%";
+};
+</script>
+
+</body>
+</html>
