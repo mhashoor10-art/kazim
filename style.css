@@ -205,6 +205,10 @@ button:hover {
   width: 200px;
   height: 200px;
 }
+.nav-links li a:active {
+  transform: scale(0.95);
+  transition: 0.1s;
+}
 /* MENU BUTTON */
 .menu-btn {
   display: none;
