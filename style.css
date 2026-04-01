@@ -88,7 +88,7 @@ button:hover {
 /* TOP HEADER */
 .top-header {
   background: #222;
-  padding: 15px;
+  padding: 30px;
   display: flex;
   align-items: center;
 }
@@ -114,9 +114,6 @@ button:hover {
   margin: 0;
 }
 
-body.dark .top-header {
-  background: #000;
-}
 /* FOOTER */
 .footer {
   background: #2a2a2a;
