@@ -182,7 +182,29 @@ button:hover {
 .nav-links li a:hover::after {
   width: 100%;
 }
+.nav-links li a {
+  position: relative;
+  overflow: hidden;
+}
 
+/* CLICK RIPPLE EFFECT */
+.nav-links li a::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(34, 197, 94, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.nav-links li a:active::before {
+  width: 200px;
+  height: 200px;
+}
 /* MENU BUTTON */
 .menu-btn {
   display: none;
