@@ -14,7 +14,7 @@ body {
   padding: 12px 20px;
   display: flex;
   align-items: center;
-  position: sticky;
+  position: solid;
   top: 0;
   z-index: 10000;
 }
@@ -161,7 +161,7 @@ button:hover {
   height: 100vh;
 
   background: rgba(17, 24, 39, 0.85);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(0px);
 
   padding-top: 70px;
 
@@ -261,7 +261,7 @@ button:hover {
   border-radius: 8px;
   border: none;
 
-  background: #grey;
+  background: #111;
   color: white;
   cursor: pointer;
 
