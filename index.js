@@ -64,13 +64,21 @@ function renderBlogs(data) {
 loadBlogs();
 
 /* ================= SEARCH ================= */
-const searchInput = document.getElementById("searchInput");
-const searchBtn = document.getElementById("searchBtn");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (searchBtn && searchInput) {
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
 
-  searchBtn.addEventListener("click", () => {
-    const value = searchInput.value.toLowerCase();
+  if (!searchBtn || !searchInput) return;
+
+  // BUTTON CLICK
+  searchBtn.onclick = () => {
+    const value = searchInput.value.trim().toLowerCase();
+
+    if (!value) {
+      renderBlogs(allBlogsData); // show all if empty
+      return;
+    }
 
     const filtered = allBlogsData.filter(b =>
       b.title?.toLowerCase().includes(value) ||
@@ -78,14 +86,16 @@ if (searchBtn && searchInput) {
     );
 
     renderBlogs(filtered);
-  });
+  };
 
+  // ENTER KEY
   searchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       searchBtn.click();
     }
   });
-}
+
+});
 
 /* ================= MENU ================= */
 const nav = document.getElementById("navLinks");
