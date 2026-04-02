@@ -237,3 +237,38 @@ button:hover {
 .menu-btn:hover {
   transform: scale(1.1);
 }
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  margin: 20px;
+}
+
+.search-box input {
+  padding: 10px 15px;
+  width: 60%;
+  max-width: 400px;
+
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+
+  background: #22c55e;
+  color: white;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.search-box button:hover {
+  background: #16a34a;
+  transform: scale(1.05);
+}
