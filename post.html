@@ -34,6 +34,7 @@ const id = new URLSearchParams(window.location.search).get("id");
 const post = document.getElementById("post");
 
 async function loadPost() {
+  post.style.opacity = 0;
   if (!id) return post.innerHTML = "No post found";
 
   const snap = await getDoc(doc(db, "blogs", id));
@@ -52,6 +53,10 @@ async function loadPost() {
     <p>${b.content || ""}</p>
   </div>
 `;
+  setTimeout(() => {
+  post.style.opacity = 1;
+  post.style.transition = "0.5s";
+}, 100);
 }
 
 loadPost();
