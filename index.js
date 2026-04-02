@@ -55,13 +55,18 @@ function safeGet(id) {
 
 /* GLOBAL TOGGLE */
 window.toggleMenu = function () {
-  const nav = safeGet("navLinks");
-  const overlay = safeGet("overlay");
+  const nav = document.getElementById("navLinks");
+  const overlay = document.getElementById("overlay");
 
   if (!nav || !overlay) return;
 
-  nav.classList.toggle("active");
-  overlay.classList.toggle("active");
+  if (nav.classList.contains("active")) {
+    nav.classList.remove("active");
+    overlay.classList.remove("active");
+  } else {
+    nav.classList.add("active");
+    overlay.classList.add("active");
+  }
 };
 
 /* ================= INIT SAFE EVENTS ================= */
