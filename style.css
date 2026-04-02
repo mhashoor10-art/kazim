@@ -139,47 +139,59 @@ button:hover {
 
 /* ================= NAVBAR ================= */
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(135deg, #111827, #000);
-  padding: 14px 20px;
+/* MENU BUTTON BIG */
+.menu-btn {
+  font-size: 32px;
+  cursor: pointer;
   color: white;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: #22c55e;
-}
-
-/* NAV LINKS */
+/* SIDEBAR MENU */
 .nav-links {
+  position: fixed;
+  top: 0;
+  left: -250px; /* hidden */
+  width: 250px;
+  height: 100%;
+  background: #111827;
+  flex-direction: column;
+  padding-top: 60px;
+  transition: 0.3s ease;
+  z-index: 999;
+}
+
+/* SHOW MENU */
+.nav-links.active {
+  left: 0;
+}
+
+/* LINKS */
+.nav-links li {
   list-style: none;
-  display: flex;
-  gap: 25px;
+  margin: 15px 0;
+  text-align: center;
 }
 
-/* LINK BASE */
 .nav-links li a {
-  color: #ddd;
+  color: white;
   text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  padding: 5px 0;
-  transition: 0.3s;
-  overflow: hidden;
+  font-size: 18px;
 }
 
-/* HOVER COLOR */
-.nav-links li a:hover {
-  color: #22c55e;
+/* OVERLAY (background dark) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 998;
+}
+
+.overlay.active {
+  display: block;
 }
 
 /* GREEN UNDERLINE */
