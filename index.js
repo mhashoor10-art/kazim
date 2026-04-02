@@ -65,27 +65,3 @@ window.toggleMenu = function () {
 };
 
 /* ================= INIT SAFE EVENTS ================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const nav = safeGet("navLinks");
-  const overlay = safeGet("overlay");
-
-  if (!nav || !overlay) return;
-
-  // force close on load
-  nav.classList.remove("active");
-  overlay.classList.remove("active");
-
-  // overlay click close
-  overlay.addEventListener("click", () => {
-    nav.classList.remove("active");
-    overlay.classList.remove("active");
-  });
-
-  // link click close
-  document.querySelectorAll(".nav-links a").forEach((link) => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("active");
-      overlay.classList.remove("active");
-    });
-  });
-});
