@@ -5,6 +5,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #f9fafb;
   color: #111;
+  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -13,7 +14,9 @@ body {
   padding: 12px 20px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
 }
 
 .top-header .logo {
@@ -39,6 +42,7 @@ body {
   font-size: 32px;
   cursor: pointer;
   color: white;
+  margin-left: auto;
 }
 
 /* INPUT */
@@ -148,32 +152,23 @@ button:hover {
 }
 
 /* ================= SIDEBAR MENU ================= */
-/* MENU BUTTON */
-.menu-btn {
-  font-size: 30px;
-  cursor: pointer;
-  color: white;
-}
 
-/* SIDEBAR MENU (FINAL FIX) */
 .nav-links {
   position: fixed;
   top: 0;
-  left: -260px; /* hidden by default */
+  left: -260px;
   width: 260px;
   height: 100%;
   background: #111827;
-  padding-top: 60px;
+  padding-top: 70px;
   transition: 0.3s ease;
-  z-index: 1000;
+  z-index: 10002;
 }
 
-/* SHOW MENU */
 .nav-links.active {
   left: 0;
 }
 
-/* LINKS */
 .nav-links li {
   list-style: none;
   margin: 20px 0;
@@ -187,7 +182,6 @@ button:hover {
   position: relative;
 }
 
-/* UNDERLINE EFFECT */
 .nav-links li a::after {
   content: "";
   position: absolute;
@@ -212,34 +206,9 @@ button:hover {
   height: 100%;
   background: rgba(0,0,0,0.5);
   display: none;
-  z-index: 999;
+  z-index: 10001;
 }
 
 .overlay.active {
   display: block;
-}
-body {
-  overflow-x: hidden;
-}
-
-/* HEADER FIX */
-.top-header {
-  position: sticky;
-  top: 0;
-  z-index: 1001;
-}
-
-/* MENU BUTTON ALIGN */
-.menu-btn {
-  margin-left: auto;
-}
-
-/* OVERLAY FIX */
-.overlay {
-  z-index: 1000;
-}
-
-/* SIDEBAR ABOVE EVERYTHING */
-.nav-links {
-  z-index: 1002;
 }
