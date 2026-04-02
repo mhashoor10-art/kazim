@@ -264,3 +264,21 @@ button:hover {
     to { opacity: 1; transform: translateY(0); }
   }
 }
+/* REMOVE BLUE CLICK HIGHLIGHT (MOBILE) */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* REMOVE BUTTON OUTLINE */
+button, 
+.menu-btn, 
+a {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* OPTIONAL: cleaner click */
+.menu-btn:focus,
+a:focus {
+  outline: none;
+}
