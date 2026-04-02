@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+/* ================= FIREBASE ================= */
 const firebaseConfig = {
   apiKey: "AIzaSyBlQP-s0Q-y6J1POkEEHrcDP32Wn6JPK_4",
   authDomain: "kazim-aa621.firebaseapp.com",
@@ -10,60 +11,81 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+/* ================= BLOG LOAD ================= */
 const blogsDiv = document.getElementById("blogs");
 
-/* ================= BLOG LOAD ================= */
 async function loadBlogs() {
+  if (!blogsDiv) return;
+
   blogsDiv.innerHTML = "Loading...";
 
-  const data = await getDocs(collection(db, "blogs"));
+  try {
+    const data = await getDocs(collection(db, "blogs"));
 
-  let html = "";
+    let html = "";
 
-  data.forEach((doc) => {
-    const b = doc.data();
+    data.forEach((doc) => {
+      const b = doc.data();
 
-    html += `
-      <div class="card">
-        <a href="post.html?id=${doc.id}">
-          <img src="${b.img || "https://via.placeholder.com/400"}">
-          <h3>${b.title || "No Title"}</h3>
-          <p>${b.desc || ""}</p>
-        </a>
-      </div>
-    `;
-  });
+      html += `
+        <div class="card">
+          <a href="post.html?id=${doc.id}">
+            <img src="${b.img || "https://via.placeholder.com/400"}">
+            <h3>${b.title || "No Title"}</h3>
+            <p>${b.desc || ""}</p>
+          </a>
+        </div>
+      `;
+    });
 
-  blogsDiv.innerHTML = html;
+    blogsDiv.innerHTML = html || "<p>No blogs found</p>";
+
+  } catch (err) {
+    console.error("Blog load error:", err);
+    blogsDiv.innerHTML = "<p>Error loading blogs</p>";
+  }
 }
 
 loadBlogs();
 
-/* ================= MENU TOGGLE ================= */
+/* ================= MENU SYSTEM ================= */
+function safeGet(id) {
+  return document.getElementById(id);
+}
+
+/* GLOBAL TOGGLE */
 window.toggleMenu = function () {
-  document.getElementById("navLinks").classList.toggle("active");
-  document.getElementById("overlay").classList.toggle("active");
+  const nav = safeGet("navLinks");
+  const overlay = safeGet("overlay");
+
+  if (!nav || !overlay) return;
+
+  nav.classList.toggle("active");
+  overlay.classList.toggle("active");
 };
 
-/* ================= AUTO CLOSE MENU ================= */
+/* ================= INIT SAFE EVENTS ================= */
 document.addEventListener("DOMContentLoaded", () => {
+  const nav = safeGet("navLinks");
+  const overlay = safeGet("overlay");
 
-  // FORCE CLOSE ON LOAD (IMPORTANT FIX)
-  document.getElementById("navLinks").classList.remove("active");
-  document.getElementById("overlay").classList.remove("active");
+  if (!nav || !overlay) return;
 
-  // overlay click = close
-  document.getElementById("overlay").onclick = () => {
-    document.getElementById("navLinks").classList.remove("active");
-    document.getElementById("overlay").classList.remove("active");
-  };
+  // force close on load
+  nav.classList.remove("active");
+  overlay.classList.remove("active");
 
-  // link click = close
-  document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-      document.getElementById("navLinks").classList.remove("active");
-      document.getElementById("overlay").classList.remove("active");
-    });
+  // overlay click close
+  overlay.addEventListener("click", () => {
+    nav.classList.remove("active");
+    overlay.classList.remove("active");
   });
 
+  // link click close
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+  });
 });
