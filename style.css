@@ -261,14 +261,14 @@ button:hover {
   border-radius: 8px;
   border: none;
 
-  background: #grey;
-  color: white;
+  background: #white;
+  color: black;
   cursor: pointer;
 
-  transition: 0.2s;
+  transition: 0.4s;
 }
 
 .search-box button:hover {
-  background: #light grey;
+  background: #light white;
   transform: scale(1.05);
 }
