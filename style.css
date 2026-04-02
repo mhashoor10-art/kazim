@@ -218,3 +218,28 @@ button:hover {
 .overlay.active {
   display: block;
 }
+body {
+  overflow-x: hidden;
+}
+
+/* HEADER FIX */
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+}
+
+/* MENU BUTTON ALIGN */
+.menu-btn {
+  margin-left: auto;
+}
+
+/* OVERLAY FIX */
+.overlay {
+  z-index: 1000;
+}
+
+/* SIDEBAR ABOVE EVERYTHING */
+.nav-links {
+  z-index: 1002;
+}
