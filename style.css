@@ -97,7 +97,7 @@ button:hover {
 
 /* PROGRESS BAR */
 #progressBar {
-  position: fixed;
+  position: sticky;
   top: 60;
   left: 0;
   height: 4px;
