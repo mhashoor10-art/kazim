@@ -14,7 +14,7 @@ body {
   padding: 12px 20px;
   display: flex;
   align-items: center;
-  position: sticky;
+  position: solid;
   top: 0;
   z-index: 10000;
 }
