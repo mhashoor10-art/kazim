@@ -13,7 +13,6 @@ const db = getFirestore(app);
 
 const blogsDiv = document.getElementById("blogs");
 
-/* STORE ALL BLOGS */
 let allBlogsData = [];
 
 /* ================= LOAD BLOGS ================= */
@@ -30,11 +29,15 @@ async function loadBlogs() {
     data.forEach((doc) => {
       const b = doc.data();
       b.id = doc.id;
+
+      // 🔥 convert date to sortable format
+      b.time = new Date(b.date).getTime() || 0;
+
       allBlogsData.push(b);
     });
 
-    // 🔥 sort latest first (important)
-    allBlogsData.reverse();
+    // 🔥 SORT BY LATEST
+    allBlogsData.sort((a, b) => b.time - a.time);
 
     renderBlogs(allBlogsData);
 
@@ -52,7 +55,6 @@ function renderBlogs(data) {
     return;
   }
 
-  // 🔥 Latest blog (FULL)
   const latest = data[0];
 
   let html = `
@@ -64,40 +66,31 @@ function renderBlogs(data) {
 
         <h2>${latest.title || "No Title"}</h2>
 
-        <p style="font-weight:500;color:#444;">
-          ${latest.desc || ""}
-        </p>
+        <p>${latest.desc || ""}</p>
 
-        <div style="margin-top:10px;color:#777;font-size:13px;">
-          ${latest.date || ""}
-        </div>
+        <small>${latest.date || ""}</small>
       </a>
     </div>
 
     <h3 style="padding:15px 20px;">📚 More Blogs</h3>
-
-    <div class="more-blogs">
   `;
 
-  // 🔥 remaining blogs
   data.slice(1).forEach((b) => {
     html += `
       <div class="card">
         <a href="post.html?id=${b.id}">
           <img src="${b.img || "https://via.placeholder.com/400"}">
-          <h3>${b.title || "No Title"}</h3>
+          <h3>${b.title}</h3>
           <p>${b.desc || ""}</p>
         </a>
       </div>
     `;
   });
 
-  html += `</div>`;
-
   blogsDiv.innerHTML = html;
 }
 
-/* CALL LOAD */
+/* CALL */
 loadBlogs();
 
 /* ================= SEARCH ================= */
@@ -109,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!searchBtn || !searchInput) return;
 
   searchBtn.onclick = () => {
-    const value = searchInput.value.trim().toLowerCase();
+    const value = searchInput.value.toLowerCase();
 
     if (!value) {
       renderBlogs(allBlogsData);
@@ -125,9 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   searchInput.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-      searchBtn.click();
-    }
+    if (e.key === "Enter") searchBtn.click();
   });
 
 });
