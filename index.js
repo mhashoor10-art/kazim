@@ -61,36 +61,41 @@ function renderBlogs(data) {
     <h2 style="padding:10px 20px;">🔥 Latest Blog</h2>
 
     <div class="card" style="max-width:700px;">
-      <a href="post.html?id=${latest.id}">
-        <img src="${latest.img || "https://via.placeholder.com/600"}">
+      <img src="${latest.img || "https://via.placeholder.com/600"}">
 
-        <h2>${latest.title || "No Title"}</h2>
+      <h2>
+        <a href="post.html?id=${latest.id}">
+          ${latest.title}
+        </a>
+      </h2>
 
-        <p>${latest.content || latest.desc || ""}</p>
+      <p>${latest.content || latest.desc || ""}</p>
 
-        <small>${latest.date || ""}</small>
-      </a>
+      <div style="margin-top:10px;color:#777;font-size:13px;">
+        ${latest.date || ""}
+      </div>
     </div>
 
     <h3 style="padding:15px 20px;">📚 More Blogs</h3>
   `;
 
+  // 🔥 MORE BLOGS
   data.slice(1).forEach((b) => {
     html += `
       <div class="card">
-  <img src="${b.img || "https://via.placeholder.com/400"}">
+        <img src="${b.img || "https://via.placeholder.com/400"}">
 
-  <h3>
-    <a href="post.html?id=${b.id}">
-      ${b.title}
-    </a>
-  </h3>
+        <h3>
+          <a href="post.html?id=${b.id}">
+            ${b.title}
+          </a>
+        </h3>
 
-  <p>${b.desc || ""}</p>
+        <p>${b.desc || ""}</p>
 
-  <a href="post.html?id=${b.id}" class="read-more">
-    Read More →
-  </a>
+        <a href="post.html?id=${b.id}" class="read-more">
+          Read More →
+        </a>
       </div>
     `;
   });
