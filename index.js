@@ -33,6 +33,9 @@ async function loadBlogs() {
       allBlogsData.push(b);
     });
 
+    // 🔥 sort latest first (important)
+    allBlogsData.reverse();
+
     renderBlogs(allBlogsData);
 
   } catch (err) {
@@ -43,9 +46,41 @@ async function loadBlogs() {
 
 /* ================= RENDER ================= */
 function renderBlogs(data) {
-  let html = "";
 
-  data.forEach((b) => {
+  if (!data.length) {
+    blogsDiv.innerHTML = "<p>No blogs found</p>";
+    return;
+  }
+
+  // 🔥 Latest blog (FULL)
+  const latest = data[0];
+
+  let html = `
+    <h2 style="padding:10px 20px;">🔥 Latest Blog</h2>
+
+    <div class="card" style="max-width:700px;">
+      <a href="post.html?id=${latest.id}">
+        <img src="${latest.img || "https://via.placeholder.com/600"}">
+
+        <h2>${latest.title || "No Title"}</h2>
+
+        <p style="font-weight:500;color:#444;">
+          ${latest.desc || ""}
+        </p>
+
+        <div style="margin-top:10px;color:#777;font-size:13px;">
+          ${latest.date || ""}
+        </div>
+      </a>
+    </div>
+
+    <h3 style="padding:15px 20px;">📚 More Blogs</h3>
+
+    <div class="more-blogs">
+  `;
+
+  // 🔥 remaining blogs
+  data.slice(1).forEach((b) => {
     html += `
       <div class="card">
         <a href="post.html?id=${b.id}">
@@ -57,7 +92,9 @@ function renderBlogs(data) {
     `;
   });
 
-  blogsDiv.innerHTML = html || "<p>No results found</p>";
+  html += `</div>`;
+
+  blogsDiv.innerHTML = html;
 }
 
 /* CALL LOAD */
@@ -71,12 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!searchBtn || !searchInput) return;
 
-  // BUTTON CLICK
   searchBtn.onclick = () => {
     const value = searchInput.value.trim().toLowerCase();
 
     if (!value) {
-      renderBlogs(allBlogsData); // show all if empty
+      renderBlogs(allBlogsData);
       return;
     }
 
@@ -88,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderBlogs(filtered);
   };
 
-  // ENTER KEY
   searchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
       searchBtn.click();
