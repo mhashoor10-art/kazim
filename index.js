@@ -78,11 +78,19 @@ function renderBlogs(data) {
   data.slice(1).forEach((b) => {
     html += `
       <div class="card">
-        <a href="post.html?id=${b.id}">
-          <img src="${b.img || "https://via.placeholder.com/400"}">
-          <h3>${b.title}</h3>
-          <p>${b.desc || ""}</p>
-        </a>
+  <img src="${b.img || "https://via.placeholder.com/400"}">
+
+  <h3>
+    <a href="post.html?id=${b.id}">
+      ${b.title}
+    </a>
+  </h3>
+
+  <p>${b.desc || ""}</p>
+
+  <a href="post.html?id=${b.id}" class="read-more">
+    Read More →
+  </a>
       </div>
     `;
   });
