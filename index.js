@@ -32,7 +32,7 @@ async function loadBlogs() {
       b.id = doc.id;
       allBlogsData.push(b);
     });
-
+     allBlogsData.sort((a, b) => new Date(b.date) - new Date(a.date));
     renderBlogs(allBlogsData);
 
   } catch (err) {
