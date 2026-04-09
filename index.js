@@ -13,13 +13,14 @@ const db = getFirestore(app);
 
 const blogsDiv = document.getElementById("blogs");
 
+/* STORE ALL BLOGS */
 let allBlogsData = [];
 
 /* ================= LOAD BLOGS ================= */
 async function loadBlogs() {
   if (!blogsDiv) return;
 
-  blogsDiv.innerHTML = "Loading...";
+  blogsDiv.innerHTML = "<p>Loading...</p>";
 
   try {
     const data = await getDocs(collection(db, "blogs"));
@@ -29,15 +30,8 @@ async function loadBlogs() {
     data.forEach((doc) => {
       const b = doc.data();
       b.id = doc.id;
-
-      // 🔥 convert date to sortable format
-      b.time = new Date(b.date).getTime() || 0;
-
       allBlogsData.push(b);
     });
-
-    // 🔥 SORT BY LATEST
-    allBlogsData.sort((a, b) => b.time - a.time);
 
     renderBlogs(allBlogsData);
 
@@ -61,9 +55,9 @@ function renderBlogs(data) {
     <h2 style="padding:10px;">🔥 Latest Blog</h2>
 
     <div class="card">
-      <img src="${latest.img}">
+      <img src="${latest.img || "https://via.placeholder.com/600"}">
       <h2><a href="post.html?id=${latest.id}">${latest.title}</a></h2>
-      <p>${latest.content}</p>
+      <p>${latest.content || latest.desc || ""}</p>
     </div>
 
     <h3 style="padding:10px;">More Blogs</h3>
@@ -71,10 +65,11 @@ function renderBlogs(data) {
     <div class="more-blogs">
   `;
 
+  /* ===== MORE BLOGS ===== */
   data.slice(1).forEach(b => {
     html += `
       <div class="blog-item">
-        <img src="${b.img}">
+        <img src="${b.img || "https://via.placeholder.com/150"}">
 
         <div class="blog-text">
           <h4>
@@ -91,10 +86,33 @@ function renderBlogs(data) {
 
   html += `</div>`;
 
+  /* ===== MOST VIEWED ===== */
+  html += `
+    <div class="most-viewed">
+      <h2>Most Viewed</h2>
+  `;
+
+  data.slice(0, 10).forEach((b, index) => {
+    html += `
+      <div class="mv-item">
+        <div class="mv-number">${index + 1}</div>
+
+        <div class="mv-text">
+          <a href="post.html?id=${b.id}">
+            ${index === 2 ? '<span class="live">● Live</span>' : ''}
+            ${b.title}
+          </a>
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
   blogsDiv.innerHTML = html;
 }
 
-/* CALL */
+/* CALL LOAD */
 loadBlogs();
 
 /* ================= SEARCH ================= */
@@ -106,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!searchBtn || !searchInput) return;
 
   searchBtn.onclick = () => {
-    const value = searchInput.value.toLowerCase();
+    const value = searchInput.value.trim().toLowerCase();
 
     if (!value) {
       renderBlogs(allBlogsData);
@@ -122,7 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   searchInput.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") searchBtn.click();
+    if (e.key === "Enter") {
+      searchBtn.click();
+    }
   });
 
 });
