@@ -119,9 +119,18 @@ async function loadBlogs() {
     };
 
     div.querySelector(".del").onclick = async () => {
-      await deleteDoc(doc(db, "blogs", d.id));
-      loadBlogs();
-    };
+
+  const confirmDelete = confirm("⚠️ Are you sure you want to delete this blog?");
+
+  if (!confirmDelete) return; // agar cancel kiya to kuch nahi hoga
+
+  await deleteDoc(doc(db, "blogs", d.id));
+
+  alert("✅ Blog deleted successfully");
+
+  loadBlogs();
+};
+    
 
     list.appendChild(div);
   });
