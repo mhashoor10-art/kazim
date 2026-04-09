@@ -10,12 +10,14 @@
 
 <div class="container">
 
+<!-- LOGIN -->
 <div id="login">
   <h2>Login 🔐</h2>
-  <input type="password" id="pass">
+  <input type="password" id="pass" placeholder="Enter password">
   <button id="loginBtn">Login</button>
 </div>
 
+<!-- PANEL -->
 <div id="panel" style="display:none;">
   <h2>Admin Panel 🚀</h2>
 
@@ -45,6 +47,7 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+/* ================= FIREBASE ================= */
 const firebaseConfig = {
   apiKey: "AIzaSyBlQP-s0Q-y6J1POkEEHrcDP32Wn6JPK_4",
   authDomain: "kazim-aa621.firebaseapp.com",
@@ -58,6 +61,7 @@ const $ = (id) => document.getElementById(id);
 
 let editId = null;
 
+/* ================= LOGIN ================= */
 $("loginBtn").onclick = () => {
   if ($("pass").value === "1234") {
     $("login").style.display = "none";
@@ -68,59 +72,73 @@ $("loginBtn").onclick = () => {
   }
 };
 
+/* ================= SAVE BLOG ================= */
 $("saveBtn").onclick = async () => {
+
   const blog = {
     title: $("title").value,
     desc: $("desc").value,
     img: $("img").value,
     content: $("content").value,
     author: $("author").value,
-    date: new Date().toDateString()
+    date: new Date().toISOString() // 🔥 FIXED DATE
   };
 
-  if (!blog.title || !blog.desc) return alert("Fill required fields");
+  if (!blog.title || !blog.desc) {
+    alert("Fill required fields");
+    return;
+  }
 
   if (editId) {
     await updateDoc(doc(db, "blogs", editId), blog);
     editId = null;
+    alert("✅ Blog updated");
   } else {
     await addDoc(collection(db, "blogs"), blog);
+    alert("🚀 Blog added");
   }
 
   clear();
   loadBlogs();
 };
 
+/* ================= LOAD BLOGS ================= */
 async function loadBlogs() {
+
   const list = $("list");
-  list.innerHTML = "";
+  list.innerHTML = "<p>Loading...</p>";
 
   const data = await getDocs(collection(db, "blogs"));
+
+  list.innerHTML = "";
 
   data.forEach((d) => {
     const b = d.data();
 
     const div = document.createElement("div");
-     
+
     div.innerHTML = `
-  <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex; align-items:center; gap:10px;">
 
-    <img src="${b.img || 'https://via.placeholder.com/80'}" 
-         style="width:60px; height:60px; object-fit:cover; border-radius:6px;">
+        <img src="${b.img || 'https://via.placeholder.com/80'}" 
+             style="width:60px; height:60px; object-fit:cover; border-radius:6px;">
 
-    <div style="flex:1;">
-      <h4 style="margin:0;">${b.title}</h4>
-    </div>
+        <div style="flex:1;">
+          <h4 style="margin:0;">${b.title}</h4>
+          <small style="color:gray;">${b.date || ""}</small>
+        </div>
 
-    <button class="edit">Edit</button>
-    <button class="del">Delete</button>
+        <button class="edit">Edit</button>
+        <button class="del">Delete</button>
 
-  </div>
-  <hr>
-`;
+      </div>
+      <hr>
+    `;
 
+    /* EDIT */
     div.querySelector(".edit").onclick = () => {
       editId = d.id;
+
       $("title").value = b.title;
       $("desc").value = b.desc;
       $("img").value = b.img;
@@ -128,24 +146,25 @@ async function loadBlogs() {
       $("author").value = b.author;
     };
 
+    /* DELETE WITH CONFIRM */
     div.querySelector(".del").onclick = async () => {
 
-  const confirmDelete = confirm("⚠️ Are you sure you want to delete this blog?");
+      const confirmDelete = confirm("⚠️ Are you sure you want to delete this blog?");
 
-  if (!confirmDelete) return; // agar cancel kiya to kuch nahi hoga
+      if (!confirmDelete) return;
 
-  await deleteDoc(doc(db, "blogs", d.id));
+      await deleteDoc(doc(db, "blogs", d.id));
 
-  alert("✅ Blog deleted successfully");
+      alert("✅ Blog deleted");
 
-  loadBlogs();
-};
-    
+      loadBlogs();
+    };
 
     list.appendChild(div);
   });
 }
 
+/* ================= CLEAR FORM ================= */
 function clear() {
   $("title").value = "";
   $("desc").value = "";
