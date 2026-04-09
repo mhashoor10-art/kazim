@@ -343,3 +343,43 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
+/* ===== MOST VIEWED ===== */
+.most-viewed {
+  padding: 10px;
+}
+
+.most-viewed h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.mv-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* NUMBER */
+.mv-number {
+  font-size: 40px;
+  font-weight: bold;
+  color: #111;
+  min-width: 40px;
+}
+
+/* TEXT */
+.mv-text {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* LIVE TAG */
+.live {
+  background: red;
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  margin-right: 5px;
+  border-radius: 4px;
+}
